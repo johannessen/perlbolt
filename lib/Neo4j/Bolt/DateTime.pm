@@ -5,7 +5,6 @@ $Neo4j::Bolt::DateTime::VERSION = '0.5000';
 
 use strict;
 use warnings;
-use DateTime;
 
 use parent 'Neo4j::Types::DateTime';
 
@@ -93,6 +92,7 @@ sub tz_offset {
 
 sub as_DateTime {
   my ($self) = @_;
+  require DateTime;
   my $dt;
   for ($self->{neo4j_type}) {
     /^Date$/ && do {

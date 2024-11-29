@@ -1,5 +1,4 @@
 requires 'Alien::OpenSSL';
-requires 'DateTime';
 requires 'JSON::PP';
 requires 'Neo4j::Client', '0.54';
 requires 'Neo4j::Types', '2.00';

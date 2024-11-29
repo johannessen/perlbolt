@@ -90,7 +90,6 @@ WriteMakefile(
   },
   PREREQ_PM => {
     'Alien::OpenSSL' => 0,
-    'DateTime' => 0,
     'Neo4j::Client' => '0.54',
     'Neo4j::Types' => '2.00',
     'JSON::PP' => 0,

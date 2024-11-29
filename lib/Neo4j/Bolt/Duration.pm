@@ -5,7 +5,6 @@ $Neo4j::Bolt::Duration::VERSION = '0.5000';
 
 use strict;
 use warnings;
-use DateTime;
 
 use parent 'Neo4j::Types::Duration';
 
@@ -27,6 +26,7 @@ sub nanoseconds {
 
 sub as_DTDuration {
   my ($self) = @_;
+  require DateTime::Duration;
   return DateTime::Duration->new(
     months => $self->{months},
     days => $self->{days},
