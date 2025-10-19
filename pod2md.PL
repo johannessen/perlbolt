@@ -14,7 +14,7 @@ Path::Tiny->import;
 
 # write POD as <Module>.md in relevant lib/ subdirs
 my $pm = path(shift);
-return unless $pm->basename =~ /\.pm$/;
+exit unless $pm->basename =~ /\.pm$/;
 my $md = "$pm";
 $md =~ s/pm$/md/;
 $md = path($md);
