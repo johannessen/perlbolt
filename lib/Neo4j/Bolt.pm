@@ -1,4 +1,7 @@
 package Neo4j::Bolt;
+use v5.12;
+use warnings;
+
 use Cwd qw/realpath getcwd/;
 
 BEGIN {

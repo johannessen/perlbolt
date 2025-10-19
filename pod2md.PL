@@ -1,7 +1,7 @@
-use v5.10;
-use Try::Tiny;
-use strict;
+use v5.12;
 use warnings;
+
+use Try::Tiny;
 
 my $have_p2m = eval "require Pod::Markdown; 1";
 

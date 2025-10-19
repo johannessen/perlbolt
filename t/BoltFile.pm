@@ -1,4 +1,7 @@
 package t::BoltFile;
+use v5.12;
+use warnings;
+
 use Neo4j::Client 0.56;
 use File::Spec;
 BEGIN {

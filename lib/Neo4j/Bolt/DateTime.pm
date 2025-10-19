@@ -3,7 +3,7 @@ package Neo4j::Bolt::DateTime;
 
 $Neo4j::Bolt::DateTime::VERSION = '0.5000';
 
-use strict;
+use v5.12;
 use warnings;
 
 use parent 'Neo4j::Types::DateTime';

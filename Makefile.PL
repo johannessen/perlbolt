@@ -1,4 +1,6 @@
-use v5.10;
+use v5.12;
+use warnings;
+
 use Alien::Base::Wrapper qw( Neo4j::Client Alien::OpenSSL !export );
 use ExtUtils::MakeMaker;
 use Neo4j::Client;
@@ -8,7 +10,6 @@ use Text::ParseWords qw/shellwords/;
 use Try::Tiny;
 use File::Spec;
 use Cwd qw/realpath/;
-use strict;
 
 my $META = {
   resources => {
@@ -159,7 +160,7 @@ END
 
 sub prompt_for_db {
   my %neo_info;
-  my $ans;
+  my $ans = '';
   while ($ans !~ /^[yn]/i) {
     $ans = prompt("Perform read-only tests on a local database?: ", "n");
   }
@@ -168,7 +169,7 @@ sub prompt_for_db {
   $neo_info{host} = prompt("Host:port: ", "localhost:7687");
   $neo_info{user} = prompt("User: ","");
   $neo_info{pass} = prompt("Pass: ","");
-  undef $ans;
+  $ans = '';
   while ($ans !~ /^[yn]/i) {
     $ans = prompt("Will you allow add/delete tests on your database (cruft will be removed)?: ", "n");
   }

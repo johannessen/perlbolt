@@ -3,7 +3,7 @@ package Neo4j::Bolt::Duration;
 
 $Neo4j::Bolt::Duration::VERSION = '0.5000';
 
-use strict;
+use v5.12;
 use warnings;
 
 use parent 'Neo4j::Types::Duration';

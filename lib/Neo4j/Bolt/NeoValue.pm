@@ -1,4 +1,6 @@
 package Neo4j::Bolt::NeoValue;
+use v5.12;
+use warnings;
 
 BEGIN {
   our $VERSION = "0.5000";
