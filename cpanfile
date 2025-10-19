@@ -8,6 +8,7 @@ requires 'perl', '5.012';
 recommends 'Mozilla::CA';
 
 on configure => sub {
+  requires 'Alien::Base::Wrapper', '0.04';
   requires 'Alien::OpenSSL';
   requires 'ExtUtils::MakeMaker', '7.12';
   requires 'Neo4j::Client', '0.54';

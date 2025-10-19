@@ -1,17 +1,14 @@
 use v5.10;
+use Alien::Base::Wrapper qw( Neo4j::Client Alien::OpenSSL !export );
 use ExtUtils::MakeMaker;
 use Neo4j::Client;
 use Alien::OpenSSL;
 use Data::Dumper;
+use Text::ParseWords qw/shellwords/;
 use Try::Tiny;
 use File::Spec;
-use Config;
 use Cwd qw/realpath/;
 use strict;
-
-# ensure that only Neo4j::Client library is used.
-
-my $LDDLFLAGS = $Config{lddlflags};
 
 my $META = {
   resources => {
@@ -62,24 +59,29 @@ if ($neo_info) {
   };
 }
 
-my @ccflags;
+my @define;
 
 # NEO4J_BOLT_TYPES_FAST enables special case code in CTypeHandlers that will
 #  read the hash ref entries of Neo4j::Bolt::DateTime & friends directly when
 #  used as query parameters. Without it, they will be read using the generic
 #  Neo4j::Types methods instead. This works just as well, but is slower.
-push @ccflags, '-DNEO4J_BOLT_TYPES_FAST' unless $ENV{NO_NEO4J_BOLT_TYPES_FAST};
+push @define, '-DNEO4J_BOLT_TYPES_FAST' unless $ENV{NO_NEO4J_BOLT_TYPES_FAST};
 
 # NEO4J_CORE_BOOLS sets the boolean values returned from Neo4j to be Perl core
 #  "distinguished" booleans on Perl v5.36 and newer. Without it, blessed
 #  JSON::PP::Boolean instances will always be used, even on Perl v5.36+.
-push @ccflags, '-DNEO4J_CORE_BOOLS' unless $ENV{NO_NEO4J_CORE_BOOLS};
+push @define, '-DNEO4J_CORE_BOOLS' unless $ENV{NO_NEO4J_CORE_BOOLS};
+
+my %alien_flags = Alien::Base::Wrapper->mm_args;
+$alien_flags{DEFINE} = join ' ', shellwords($alien_flags{DEFINE} // ''), @define;
+$alien_flags{INC} = join ' ', shellwords($alien_flags{INC} // ''), '-iquote'.realpath('include');
 
 WriteMakefile(
   NAME => 'Neo4j::Bolt',
   VERSION_FROM => 'lib/Neo4j/Bolt.pm',
   MIN_PERL_VERSION => '5.012',
   CONFIGURE_REQUIRES => {
+    'Alien::Base::Wrapper' => '0.04',
     'Alien::OpenSSL' => 0,
     'ExtUtils::MakeMaker' => '7.12',
     'Neo4j::Client' => '0.54',
@@ -103,12 +105,7 @@ WriteMakefile(
   ABSTRACT => "Neo4j server agent using Bolt protocol",
   AUTHOR => ['Mark A. Jensen (majensen -at- cpan -dot- org)'],
   LICENSE => 'apache_2_0',
-  CCFLAGS => join(' ',Neo4j::Client->cflags,@ccflags),
-  LIBS => join(' ',Neo4j::Client->libs_static,Alien::OpenSSL->libs_static),
-  INC => "-iquote".realpath('.')."/include",
-  # avoid a factory libneo4j-client in a standard location (possibly
-  # in lddlflags):
-  LDDLFLAGS => join(' ',Neo4j::Client->libs_static,$LDDLFLAGS),
+  %alien_flags,
   test => {TESTS => 't/*.t'},
   clean => {FILES => "include/ppport.h t/neo_info"},
   PL_FILES => { "pod2md.PL" => [qw(
