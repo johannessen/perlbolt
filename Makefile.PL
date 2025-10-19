@@ -35,12 +35,12 @@ my $META = {
     develop => {
       requires => {
         'Devel::PPPort' => '3.63',
-	'Inline::C' => 0,  # in t/Boltfile.pm, used via xt/003_stream.t
+        'Inline::C' => '0.56',  # in t/Boltfile.pm, used via xt/003_stream.t
 	#'IPC::Run' => 0,  # in t/lib/NeoCon.pm, but not actually used anywhere
       },
       recommends => {
-        'Path::Tiny' => 0,  # pod2md.PL
-        'Pod::Markdown' => 0,  # pod2md.PL
+        'Path::Tiny' => '0.054',  # pod2md.PL
+        'Pod::Markdown' => '3.100',  # pod2md.PL
       },
     },
   },
@@ -102,6 +102,7 @@ WriteMakefile(
   TEST_REQUIRES => {
     'Test::Exception' => 0,
     'Test::Neo4j::Types' => '0.06',
+    'Try::Tiny' => 0,
   },
   ABSTRACT => "Neo4j server agent using Bolt protocol",
   AUTHOR => ['Mark A. Jensen (majensen -at- cpan -dot- org)'],
