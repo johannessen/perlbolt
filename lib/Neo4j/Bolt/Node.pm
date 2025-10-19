@@ -88,6 +88,8 @@ L<Neo4j::Types::Node>:
 
 =over
 
+=item * L<B<element_id()>|Neo4j::Types::Node/"element_id">
+
 =item * L<B<get()>|Neo4j::Types::Node/"get">
 
 =item * L<B<id()>|Neo4j::Types::Node/"id">
@@ -107,14 +109,15 @@ The following additional method is provided:
  $simple  = $node->as_simple;
  
  $node_id = $simple->{_node};
+ $eid     = $simple->{_element_id};
  @labels  = @{ $simple->{_labels} };
  $value1  = $simple->{property1};
  $value2  = $simple->{property2};
 
 Get node as a simple hashref in the style of L<REST::Neo4p>.
 
-The value of properties named C<_node> or C<_labels> will be
-replaced with the node's metadata.
+The value of properties named C<_node>, C<_element_id>, or
+C<_labels> will be replaced with the node's metadata.
 
 =back
 

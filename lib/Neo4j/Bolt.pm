@@ -115,14 +115,17 @@ L<Paths|Neo4j::Bolt::Path> are represented in the following formats:
 
  # Node:
  bless {
-   id => $node_id,  labels => [$label1, $label2, ...],
+   id => $node_id,  element_id => $node_eid,
+   labels => [$label1, $label2, ...],
    properties => {prop1 => $value1, prop2 => $value2, ...}
  }, 'Neo4j::Bolt::Node'
 
  # Relationship:
  bless {
-   id => $reln_id,  type => $reln_type,
-   start => $start_node_id,  end => $end_node_id,
+   id    => $reln_id,        element_id       => $reln_eid,
+   start => $start_node_id,  start_element_id => $start_node_eid,
+   end   => $end_node_id,    end_element_id   => $end_node_eid,
+   type  => $reln_type,
    properties => {prop1 => $value1, prop2 => $value2, ...}
  }, 'Neo4j::Bolt::Relationship'
 
