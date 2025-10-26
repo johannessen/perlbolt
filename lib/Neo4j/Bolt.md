@@ -31,6 +31,10 @@ Neo4j::Bolt - query Neo4j using Bolt protocol
 implementing the Neo4j [Bolt](https://boltprotocol.org/) network
 protocol. It uses Ingy's [Inline::C](https://metacpan.org/pod/Inline::C) to do all the hard XS work.
 
+The Alien module [Neo4j::Client](https://metacpan.org/pod/Neo4j::Client) provides the library. A Perl warning
+in the `Neo4j::Bolt` category is emitted at load time if an outdated
+library version is detected.
+
 ## Return Types
 
 [Neo4j::Bolt::ResultStream](/lib/Neo4j/Bolt/ResultStream.md) returns rows resulting from queries made 
