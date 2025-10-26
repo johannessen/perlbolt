@@ -6,7 +6,7 @@ use warnings::register;
 use Cwd qw/realpath getcwd/;
 
 BEGIN {
-  our $VERSION = "0.5000";
+  our $VERSION = "0.5001"; # TRIAL
   my @min_lib_version = (5,0,7);
 
   require Neo4j::Bolt::Cxn;

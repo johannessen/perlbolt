@@ -1,7 +1,7 @@
 package Neo4j::Bolt::Path;
 # ABSTRACT: Representation of Neo4j Path
 
-$Neo4j::Bolt::Path::VERSION = '0.5000';
+$Neo4j::Bolt::Path::VERSION = '0.5001';
 
 use v5.12;
 use warnings;

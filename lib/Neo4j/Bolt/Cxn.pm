@@ -5,7 +5,7 @@ use warnings;
 use Carp qw/croak/;
 
 BEGIN {
-  our $VERSION = "0.5000";
+  our $VERSION = "0.5001";
   require Neo4j::Bolt::CTypeHandlers;
   require Neo4j::Bolt::ResultStream;
   require XSLoader;
