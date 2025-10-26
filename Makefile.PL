@@ -1,10 +1,8 @@
 use v5.12;
 use warnings;
 
-use Alien::Base::Wrapper qw( Neo4j::Client Alien::OpenSSL !export );
+use Alien::Base::Wrapper qw( Neo4j::Client !export );
 use ExtUtils::MakeMaker;
-use Neo4j::Client;
-use Alien::OpenSSL;
 use Data::Dumper;
 use Text::ParseWords qw/shellwords/;
 use Try::Tiny;
@@ -83,17 +81,15 @@ WriteMakefile(
   MIN_PERL_VERSION => '5.012',
   CONFIGURE_REQUIRES => {
     'Alien::Base::Wrapper' => '0.04',
-    'Alien::OpenSSL' => 0,
     'ExtUtils::MakeMaker' => '7.12',
-    'Neo4j::Client' => '0.54',
+    'Neo4j::Client' => '0.56',
     'Try::Tiny' => 0,
   },
   BUILD_REQUIRES => {
     'ExtUtils::Typemaps' => '3.24',  # embedded typemap
   },
   PREREQ_PM => {
-    'Alien::OpenSSL' => 0,
-    'Neo4j::Client' => '0.54',
+    'Neo4j::Client' => '0.56',
     'Neo4j::Types' => '2.00',
     'JSON::PP' => 0,
     'URI' => 0,

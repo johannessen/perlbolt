@@ -1,6 +1,5 @@
-requires 'Alien::OpenSSL';
 requires 'JSON::PP';
-requires 'Neo4j::Client', '0.54';
+requires 'Neo4j::Client', '0.56';
 requires 'Neo4j::Types', '2.00';
 requires 'URI';
 requires 'XSLoader', '0.14';  # XSLoader::load()
@@ -9,9 +8,8 @@ recommends 'Mozilla::CA';
 
 on configure => sub {
   requires 'Alien::Base::Wrapper', '0.04';
-  requires 'Alien::OpenSSL';
   requires 'ExtUtils::MakeMaker', '7.12';
-  requires 'Neo4j::Client', '0.54';
+  requires 'Neo4j::Client', '0.56';
   requires 'Try::Tiny';
 };
 
