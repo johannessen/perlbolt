@@ -20,6 +20,7 @@ jobs:
         uses: actions/checkout@v4
       - name: Install dependencies
         run: |
+          cpanm Neo4j::Client --dev
           cpanm --cpanfile cpanfile --installdeps --skip-satisfied \
             --with-recommends --with-configure --with-develop .
       - name: Run unit tests
@@ -55,23 +56,21 @@ jobs:
     strategy:
       matrix:
         include:
-          - neo4j: "5.25.1"  # Neo4j 5.25 = Bolt 5.0-5.6
+          - neo4j: "2025"  # Bolt v5/v6
             perl: "5.40"
-          - neo4j: "5.16.0"  # Neo4j 5.16 = Bolt 5.0-5.4
-            perl: "5.26"
-          - neo4j: "5.8.0"   # Neo4j 5.8  = Bolt 5.0-5.2
+          - neo4j: "5.26"  # Bolt v5
             perl: "5.16"
-          - neo4j: "4.4.38"  # Neo4j 4
-            perl: "5.38"
-          - neo4j: "3.5.35"  # Neo4j 3
+          - neo4j: "4.4"   # Bolt v4
+            perl: "5.42"
+          - neo4j: "3.5"   # Bolt v3
             perl: "5.36"
       fail-fast: false
     env:
       CI: 1
       TEST_NEO4J_PASSWORD: xkcd_792
-      NEO4J: ${{ matrix.neo4j }}
     steps:
       - name: Install Neo4j
+        id: install
         uses: johannessen/actions-install-neo4j@v1
         with:
           neo4j-version: ${{ matrix.neo4j }}
@@ -88,7 +87,9 @@ jobs:
           name: build_dir
           path: .
       - name: Install distribution dependencies
-        run: cpanm -nq --installdeps --skip-satisfied .
+        run: |
+          cpanm Neo4j::Client --dev
+          cpanm -nq --installdeps --skip-satisfied .
       - name: Version info
         run: |
           curl -s http://localhost:7474/ -u "neo4j:$TEST_NEO4J_PASSWORD" | grep neo4j_version || true
@@ -96,7 +97,7 @@ jobs:
           ls | grep --max-count=1 neo4j-community || true
           which perl
           perl -V
-          basename "$(cat neo4j-javahome)"
+          cat neo4j-javahome
       - name: Build
         run: |
           echo y$'\n'$'\n'"neo4j"$'\n'"$TEST_NEO4J_PASSWORD"$'\n'y | perl Makefile.PL
@@ -113,3 +114,4 @@ jobs:
           EXTENDED_TESTING: 1
           RELEASE_TESTING: 1
           AUTHOR_TESTING: 1
+          NEO4J: ${{ steps.install.outputs.neo4j-version }}
