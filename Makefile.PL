@@ -2,12 +2,15 @@ use v5.12;
 use warnings;
 
 use Alien::Base::Wrapper qw( Neo4j::Client !export );
+use Config;
 use ExtUtils::MakeMaker;
 use Data::Dumper;
 use Text::ParseWords qw/shellwords/;
 use Try::Tiny;
 use File::Spec;
 use Cwd qw/realpath/;
+
+die "OS unsupported\n64 bit integers required\n" unless $Config{use64bitint};
 
 my $META = {
   resources => {
