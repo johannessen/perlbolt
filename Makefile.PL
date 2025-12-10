@@ -13,7 +13,6 @@ use Cwd qw/realpath/;
 die "OS unsupported\n64 bit integers required\n" unless $Config{use64bitint};
 
 my $META = {
-  release_status => 'testing',
   resources => {
     bugtracker => {
       web => 'https://github.com/majensen/perlbolt/issues',
